@@ -1,17 +1,13 @@
 # Addison Ashworth C950
 
-from exceldataimporter import *
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
+from excelpackagedataimporter import *
+from distancegraph import Distance
 
 # beginning of program
 if __name__ == '__main__':
-    print_hi('created by addison')
 
-    packages = get_packages_from_file("WGUPS Package File.csv")
-    #print(packages[0])
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # packages = get_packages_from_file("WGUPS Package File.csv")
+    distances = Distance()
+    distances.get_distances_from_file("WGUPS Distance Table.csv")
+
+    distances.get_edges_from_location("380 W 2880 S")
