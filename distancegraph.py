@@ -82,15 +82,21 @@ class Distance:
         """return first key containing string"""
         for item in self.values.adjacency_list.keys():
             if item.__contains__(string):
+                # print("I found: " + item)
                 return item
 
-    def get_edges_from_location_to_locations(self, start_location, end_locations):
+    def get_distance_from_location_to_locations(self, start_location, end_location):
         """takes a location or list of locations and returns all edges leading away from it"""
 
-        all_adjacency = self.values.adjacency_list.get(self.get_key_from_string(start_location))
+        start_loc_key = self.get_key_from_string(start_location)
+        end_loc_key = self.get_key_from_string(end_location)
 
-        for item in all_adjacency:
-            for loc in end_locations:
-                if item == self.get_key_from_string(loc):
+        if end_loc_key is None or start_loc_key is None:
+            return None
 
+        answer = self.values.edge_weights[start_loc_key, end_loc_key]
+        print("distance to " + end_loc_key + " is ")
 
+        print(answer)
+
+        return self.values.edge_weights[start_loc_key, end_loc_key]

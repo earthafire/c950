@@ -6,8 +6,8 @@ class Truck:
         self.location = current_address
         self.packages = []
         self.start_time = datetime.time()
-        self.start_time.hour = 7 # when the truck leaves the hub to deliver the first package
-        self.speed = 18 # miles per hour
+        self.start_time.hour = 7  # when the truck leaves the hub to deliver the first package
+        self.speed = 18  # miles per hour
 
     def add_package(self, nextpackage):
         self.packages.append(nextpackage)
