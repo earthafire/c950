@@ -18,11 +18,12 @@ class PackageHashTable:
     # big O: O(1)
     def add_package(self, new_package):
         new_hash_item = HashItem(new_package.package_id, new_package)
-        self.data.insert(new_hash_item.key % self.current_size, new_hash_item)  # hash is current size
+        packagenum = new_hash_item.key % self.current_size
+        self.data.insert(packagenum, new_hash_item)  # hash is current size
         self.filled_slots += 1  # keeps track of how many full slots in order to prevent filling it up
 
         if self.filled_slots / self.current_size > .9:  # if the hashtable is getting full, add another 40 slots
-            print("increasing size of hashtable")
+            # print("increasing size of hashtable")
             self.current_size = self.current_size + 25
             for x in range(0, 24):
                 self.data.append(None)
