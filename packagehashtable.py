@@ -23,7 +23,6 @@ class PackageHashTable:
     # big O: O(1)
     def add_package(self, new_package):
         package_num = self.get_hash(new_package.package_id)
-        print(package_num)
 
         if self.data[package_num] is None:
             self.filled_slots += 1  # keeps track of how many full slots in order to prevent filling it up
@@ -35,7 +34,8 @@ class PackageHashTable:
 
     # big O(1) time to retrieve package
     def get_package(self, int_id):
-        return self.data[self.get_hash(int_id)]
+        package = self.data[self.get_hash(int_id)]
+        return package
 
     # big O(1) time to edit package
     def edit_package_status(self, int_key, status):
@@ -44,3 +44,8 @@ class PackageHashTable:
             print("No such package found!")
         else:
             package_to_edit.status = status
+
+    def print_all_packages_status(self):
+        for item in self.data:
+            if item is not None:
+                item.print()

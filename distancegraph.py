@@ -75,7 +75,7 @@ class Distance:
 
                         # the rest of the items are weights for each edge attached to this vertex
                         to_vertex = self.values.verticesList.get(csv_column_index)[0]
-                        print("make undirected edge from: ", from_vertex, " and to: ", to_vertex, " with weight: ", item)
+                        # print("make undirected edge from: ", from_vertex, " and to: ", to_vertex, " with weight: ", item)
                         self.values.add_undirected_edge(from_vertex, to_vertex, item)
 
     def get_key_from_string(self, string):
