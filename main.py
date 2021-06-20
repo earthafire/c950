@@ -16,8 +16,9 @@ if __name__ == '__main__':
     distances.get_distances_from_file("WGUPS Distance Table.csv")
 
     # initialize trucks
-    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=7), distances)
-    truck2 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=7), distances)
+    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
+    truck2 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
+    truck3 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
 
     # ask for user input
     print("Make a selection")
@@ -33,21 +34,53 @@ if __name__ == '__main__':
         selectedPackage.print()
     elif val == 1:
         # load packages into trucks using previous data from algorithm
-        algorithm.load_trucks(truck1, truck2, packages)
+        algorithm.load_trucks(truck1, truck2, truck3, packages)
 
         # simulate trucks driving routes until selected time
         time = datetime.datetime.fromisoformat("0001-01-01T" + input("Type time (HH:MM) and press enter: ") + ":00")
 
-        truck1.deliver_to_time(time)
-        truck2.deliver_to_time(time)
+        time1 = truck1.deliver_to_time(time)
+        time2 = truck2.deliver_to_time(time)
+
+        if time1 < time2:
+            truck3.set_start_time(time1)
+        else:
+            truck3.set_start_time(time2)
+
+        # truck3 delivers after any truck arrives
+        truck3.deliver_to_time(time)
+
         print()
         # show all package status at end of simulation
         packages.print_all_packages_status()
     elif val == 2:
-        None
+        greedy_algorithm = algorithm.NearestNeighbor(distances, packages)
+        greedy_algorithm.greedy_sort()
+    elif val == 3:
+        # load packages into trucks using previous data from algorithm
+        algorithm.load_trucks(truck1, truck2, truck3, packages)
+
+        # simulate trucks driving routes until selected time
+        time = datetime.datetime.fromisoformat("0001-01-01T" + "23:00" + ":00")
+
+        time1 = truck1.deliver_to_time(time)
+        time2 = truck2.deliver_to_time(time)
+
+        if time1 < time2:
+            truck3.set_start_time(time1)
+        else:
+            truck3.set_start_time(time2)
+
+        # truck3 delivers after any truck arrives
+        truck3.deliver_to_time(time)
+
+        print()
+        # show all package status at end of simulation
+        print("\ntruck 1")
+        truck1.view_cargo()
+        print("\ntruck 2")
+        truck2.view_cargo()
+        print("\ntruck 3")
+        truck3.view_cargo()
     else:
         print("invalid input, try again")
-
-
-def load_trucks(self):
-    None

@@ -6,6 +6,9 @@ class PackageHashTable:
         self.filled_slots = 0
         self.data = [None] * self.current_size  # list of packages
 
+    def get_filled_slots(self):
+        return self.filled_slots
+
     def get_hash(self, value):
         return value % self.current_size
 

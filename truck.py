@@ -11,6 +11,9 @@ class Truck:
         self.speed = 18  # miles per hour
         self.distance_map = distance_map
 
+    def set_start_time(self, new_time):
+        self.start_time = new_time
+
     def add_package(self, new_package):
         self.packages.append(new_package)
 
@@ -23,9 +26,6 @@ class Truck:
             # leave hub and change package status
             for item in self.packages:
                 item.status = "en route"
-
-            # add "package" with hub address to return home
-            self.packages.append(package.Package(0, "4001 South 700 East", "", "", "", "", ""))
 
             # start all packages
             for item in self.packages:
@@ -47,6 +47,8 @@ class Truck:
 
         print("Distance traveled: {0:.2f} miles - End time: {1}:{2:0>2}"
               .format(distance, end_time.hour, end_time.minute))
+
+        return end_time
     #
     # def deliver_all(self):
     #     #  hub and change package status
