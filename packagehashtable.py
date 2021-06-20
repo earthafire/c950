@@ -35,6 +35,8 @@ class PackageHashTable:
     # big O(1) time to retrieve package
     def get_package(self, int_id):
         package = self.data[self.get_hash(int_id)]
+        if package is None:
+            print("No such package found!")
         return package
 
     # big O(1) time to edit package

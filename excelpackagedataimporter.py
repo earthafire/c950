@@ -2,6 +2,7 @@ import csv
 from package import Package
 from packagehashtable import PackageHashTable
 
+
 def get_packages_from_file(filename):
     package_hash = PackageHashTable()
     file = open(filename, 'r')
