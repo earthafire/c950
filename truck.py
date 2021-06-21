@@ -17,7 +17,6 @@ class Truck:
         self.packages.append(new_package)
 
     def deliver_to_time(self, stop_time):
-
         distance = 0
         end_time = datetime.datetime(1, 1, 1, self.start_time.hour, self.start_time.minute, self.start_time.second)
 
@@ -47,7 +46,8 @@ class Truck:
         print("Distance traveled: {0:.2f} miles - End time: {1}:{2:0>2}"
               .format(distance, end_time.hour, end_time.minute))
 
-        return end_time
+        data = [end_time, distance]
+        return data
 
     def view_cargo(self):
         for item in self.packages:

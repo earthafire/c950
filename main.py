@@ -22,9 +22,10 @@ if __name__ == '__main__':
 
     # ask for user input
     print("Make a selection")
-    print("0 look up package id")
-    print("1 look up status of all packages at specific time")
-    val = int(input("2 use algorithm to determine best route: "))
+    print("0 Look up package by ID")
+    print("1 Look up the status of all packages at a specific time")
+    print("2 Use algorithm to determine best route")
+    val = int(input("Int input: "))
 
     packages_left = []
     greedy_algorithm = algorithm.NearestNeighbor(distances)
@@ -48,18 +49,21 @@ if __name__ == '__main__':
         # simulate trucks driving routes until selected time
         time = datetime.datetime.fromisoformat("0001-01-01T" + input("Type time (HH:MM) and press enter: ") + ":00")
 
-        time1 = truck1.deliver_to_time(time)
-        time2 = truck2.deliver_to_time(time)
+        mileage = 0
+
+        data1 = truck1.deliver_to_time(time)
+        data2 = truck2.deliver_to_time(time)
 
         # truckload 3 is filled when truckload 1 or 2 arrives
-        if time1 < time2:
-            truck3.set_start_time(time1)
+        if data1[0] < data2[0]:
+            truck3.set_start_time(data1[0])
         else:
-            truck3.set_start_time(time2)
+            truck3.set_start_time(data2[0])
 
         # truck3 delivers after any truck arrives
-        truck3.deliver_to_time(time)
-
+        data3 = truck3.deliver_to_time(time)
+        mileage = data1[1] + data2[1] + data3[1]
+        print("total mileage: {0:.2f} miles".format(mileage))
         print()
         # show all package status at end of simulation
         packages.print_all_packages_status()
