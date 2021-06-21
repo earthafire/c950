@@ -5,60 +5,38 @@ import distancegraph
 
 
 def load_trucks(truck1: Truck, truck2: Truck, truck3: Truck, packages: PackageHashTable):
-    truck1.add_package(packages.get_package(14))
-    truck1.add_package(packages.get_package(20))
-    truck1.add_package(packages.get_package(21))
-    truck1.add_package(packages.get_package(19))
-    truck1.add_package(packages.get_package(24))
-    truck1.add_package(packages.get_package(25))
-    truck1.add_package(packages.get_package(26))
-    truck1.add_package(packages.get_package(2))
-    truck1.add_package(packages.get_package(33))
-    truck1.add_package(packages.get_package(28))
-    truck1.add_package(packages.get_package(15))
-    truck1.add_package(packages.get_package(16))
-    truck1.add_package(packages.get_package(34))
-    truck1.add_package(packages.get_package(1))
-    truck1.add_package(packages.get_package(4))
-    truck1.add_package(packages.get_package(22))
-    # this package sends the truck back to hub for more packages, not a real package
+    packages.get_package(9).address = "410 S State St"
+
+    # truck1_packages = [3, 8, 30, 5, 9, 37, 38, 10, 13, 39, 1, 28, 2, 27, 33, 35]
+    # truck2_packages = [7, 29, 4, 40, 20, 21, 31, 32, 12]
+    # truck3_packages = [19, 6, 36, 17, 24, 14, 25, 26, 15, 16, 34, 18, 23, 11, 22]
+
+    truck1_packages = [3, 8, 30, 5, 9, 37, 38, 10, 13, 39, 1, 28, 2, 27, 33, 35]
+    truck2_packages = [7, 29, 4, 40, 20, 21, 31, 32, 12]
+    truck3_packages = [19, 6, 36, 17, 24, 14, 25, 26, 15, 16, 34, 18, 23, 11, 22]
+
+    truck1_packages.reverse()
+
+    for item in truck1_packages:
+        truck1.add_package(packages.get_package(item))
     truck1.add_package(Package(0, "4001 South 700 East", "", "", "", "", ""))
-
-    truck2.add_package(packages.get_package(40))
-    truck2.add_package(packages.get_package(31))
-    truck2.add_package(packages.get_package(32))
-    truck2.add_package(packages.get_package(7))
-    truck2.add_package(packages.get_package(29))
-    truck2.add_package(packages.get_package(17))
-    truck2.add_package(packages.get_package(10))
-    truck2.add_package(packages.get_package(6))
-    truck2.add_package(packages.get_package(11))
-    truck2.add_package(packages.get_package(23))
-    truck2.add_package(packages.get_package(5))
-    truck2.add_package(packages.get_package(37))
-    truck2.add_package(packages.get_package(38))
-    truck2.add_package(packages.get_package(27))
-    truck2.add_package(packages.get_package(35))
-    truck2.add_package(packages.get_package(3))
-
-    truck3.add_package(packages.get_package(8))
-    truck3.add_package(packages.get_package(9))
-    truck3.add_package(packages.get_package(12))
-    truck3.add_package(packages.get_package(30))
-    truck3.add_package(packages.get_package(36))
-    truck3.add_package(packages.get_package(13))
-    truck3.add_package(packages.get_package(39))
-    truck3.add_package(packages.get_package(18))
+    for item in truck2_packages:
+        truck2.add_package(packages.get_package(item))
+    for item in truck3_packages:
+        truck3.add_package(packages.get_package(item))
 
 
 class NearestNeighbor:
     def __init__(self, graph: distancegraph.Distance, packages: PackageHashTable):
         self.graph = graph
-        self.hub_address = "4001 South 700 East"
-        self.current_address = "4001 South 700 East"
+        self.hub_address = "233 Canyon Rd"
+        self.current_address = "233 Canyon Rd"
         self.final_route = []
         self.packages_left = []
         for x in range(1, packages.get_filled_slots() + 1):
+            if x == 9:
+                packages.get_package(x).address = "410 S State St"
+
             self.packages_left.append(packages.get_package(x))
 
     def greedy_sort(self):
@@ -69,8 +47,10 @@ class NearestNeighbor:
             # add package to list
             self.final_route.append(self.pop_nearest_package())
 
+        temp_string = ""
         for x in self.final_route:
-            print(x.package_id)
+            temp_string += str(x.package_id) + ", "
+        print(temp_string)
 
     def pop_nearest_package(self):
         # iterate through all possible packages

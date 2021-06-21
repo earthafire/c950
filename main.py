@@ -16,7 +16,7 @@ if __name__ == '__main__':
     distances.get_distances_from_file("WGUPS Distance Table.csv")
 
     # initialize trucks
-    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
+    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8, minute=3), distances)
     truck2 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
     truck3 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
 
