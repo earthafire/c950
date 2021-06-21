@@ -16,7 +16,7 @@ if __name__ == '__main__':
     distances.get_distances_from_file("WGUPS Distance Table.csv")
 
     # initialize trucks
-    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8, minute=3), distances)
+    truck1 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
     truck2 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
     truck3 = truck.Truck("4001 South 700 East", datetime.datetime(1, 1, 1, hour=8), distances)
 
@@ -25,6 +25,15 @@ if __name__ == '__main__':
     print("0 look up package id")
     print("1 look up status of all packages at specific time")
     val = int(input("2 use algorithm to determine best route: "))
+
+    packages_left = []
+    greedy_algorithm = algorithm.NearestNeighbor(distances)
+
+    for x in range(1, packages.get_filled_slots() + 1):
+        if x == 9:
+            packages.get_package(x).address = "410 S State St"
+
+        packages_left.append(packages.get_package(x))
 
     if val == 0:
         # retrieve package data from hashtable in big O(1) time
@@ -42,6 +51,7 @@ if __name__ == '__main__':
         time1 = truck1.deliver_to_time(time)
         time2 = truck2.deliver_to_time(time)
 
+        # truckload 3 is filled when truckload 1 or 2 arrives
         if time1 < time2:
             truck3.set_start_time(time1)
         else:
@@ -53,34 +63,8 @@ if __name__ == '__main__':
         print()
         # show all package status at end of simulation
         packages.print_all_packages_status()
+
     elif val == 2:
-        greedy_algorithm = algorithm.NearestNeighbor(distances, packages)
-        greedy_algorithm.greedy_sort()
-    elif val == 3:
-        # load packages into trucks using previous data from algorithm
-        algorithm.load_trucks(truck1, truck2, truck3, packages)
-
-        # simulate trucks driving routes until selected time
-        time = datetime.datetime.fromisoformat("0001-01-01T" + "23:00" + ":00")
-
-        time1 = truck1.deliver_to_time(time)
-        time2 = truck2.deliver_to_time(time)
-
-        if time1 < time2:
-            truck3.set_start_time(time1)
-        else:
-            truck3.set_start_time(time2)
-
-        # truck3 delivers after any truck arrives
-        truck3.deliver_to_time(time)
-
-        print()
-        # show all package status at end of simulation
-        print("\ntruck 1")
-        truck1.view_cargo()
-        print("\ntruck 2")
-        truck2.view_cargo()
-        print("\ntruck 3")
-        truck3.view_cargo()
+        greedy_algorithm.greedy_sort(packages_left)
     else:
         print("invalid input, try again")

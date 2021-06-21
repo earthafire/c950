@@ -1,6 +1,4 @@
 import csv
-from package import Package
-from packagehashtable import PackageHashTable
 
 
 class Location:
@@ -61,21 +59,16 @@ class Distance:
                     if csv_column_index == 0:
                         # the first column is the name of the vertex
                         from_vertex = item
-
                     elif csv_column_index == 1:
                         # we skip the second column, its the address only
                         continue
-
                     else:
                         item = float(item)
-
                         if item == 0:
                             # we are done with this row if we find a 0
                             break
-
                         # the rest of the items are weights for each edge attached to this vertex
                         to_vertex = self.values.verticesList.get(csv_column_index)[0]
-                        # print("make undirected edge from: ", from_vertex, " and to: ", to_vertex, " with weight: ", item)
                         self.values.add_undirected_edge(from_vertex, to_vertex, item)
 
     def get_key_from_string(self, string):
@@ -100,8 +93,5 @@ class Distance:
         if end_loc_key == start_loc_key:
             return 0
         answer = self.values.edge_weights[start_loc_key, end_loc_key]
-        # print("distance to " + end_loc_key + " is ")
-
-        # print(answer)
 
         return answer

@@ -1,6 +1,5 @@
 import datetime
 import distancegraph
-import package
 
 
 class Truck:
@@ -49,40 +48,6 @@ class Truck:
               .format(distance, end_time.hour, end_time.minute))
 
         return end_time
-    #
-    # def deliver_all(self):
-    #     #  hub and change package status
-    #     for item in self.packages:
-    #         item.status = "en route"
-    #
-    #     distance = 0
-    #     end_time = datetime.datetime(1, 1, 1, self.start_time.hour, self.start_time.minute, self.start_time.second)
-    #
-    #     # deliver all packages
-    #     for item in self.packages:
-    #         # calculate next move
-    #         next_distance = self.distance_map.get_distance_from_location_to_locations(self.location, item.address)
-    #         seconds_to_destination = next_distance / self.speed * 60 * 60
-    #         # move truck
-    #         self.location = item.address
-    #         distance += next_distance
-    #         end_time = end_time + datetime.timedelta(seconds=seconds_to_destination)
-    #         item.status = "delivered {2}:{3:0>2}".format(end_time.hour, end_time.minute)
-    #         print("Traveled {0} miles to deliver packageID {1} at {2}:{3:0>2}"
-    #               .format(next_distance, item.package_id, end_time.hour, end_time.minute))
-    #
-    #     # return to hub
-    #
-    #     #
-    #     next_distance = self.distance_map.get_distance_from_location_to_locations(self.location, "4001 South 700 East")
-    #     seconds_to_destination = next_distance / self.speed * 60 * 60
-    #     # move truck
-    #     self.location = item.address
-    #     distance += next_distance
-    #     end_time = end_time + datetime.timedelta(seconds=seconds_to_destination)
-    #
-    #     print("Distance traveled by truck: {0} miles - End time: {1}:{2:0>2}"
-    #           .format(distance, end_time.hour, end_time.minute))
 
     def view_cargo(self):
         for item in self.packages:
